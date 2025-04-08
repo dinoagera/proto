@@ -1,4 +1,4 @@
-module github.com/dinoagera/proto/gen/go/myservice
+module github.com/dinoagera/proto
 
 go 1.24.1
 
