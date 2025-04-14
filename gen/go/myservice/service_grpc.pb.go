@@ -23,6 +23,7 @@ const (
 	DBWork_DeleteTask_FullMethodName = "/myservice.DBWork/DeleteTask"
 	DBWork_DoneTask_FullMethodName   = "/myservice.DBWork/DoneTask"
 	DBWork_GetAllTask_FullMethodName = "/myservice.DBWork/GetAllTask"
+	DBWork_ChangeTask_FullMethodName = "/myservice.DBWork/ChangeTask"
 )
 
 // DBWorkClient is the client API for DBWork service.
@@ -33,6 +34,7 @@ type DBWorkClient interface {
 	DeleteTask(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
 	DoneTask(ctx context.Context, in *DoneRequest, opts ...grpc.CallOption) (*DoneResponse, error)
 	GetAllTask(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllResponse, error)
+	ChangeTask(ctx context.Context, in *ChangeRequest, opts ...grpc.CallOption) (*ChangeResponse, error)
 }
 
 type dBWorkClient struct {
@@ -83,6 +85,16 @@ func (c *dBWorkClient) GetAllTask(ctx context.Context, in *GetAllRequest, opts .
 	return out, nil
 }
 
+func (c *dBWorkClient) ChangeTask(ctx context.Context, in *ChangeRequest, opts ...grpc.CallOption) (*ChangeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ChangeResponse)
+	err := c.cc.Invoke(ctx, DBWork_ChangeTask_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DBWorkServer is the server API for DBWork service.
 // All implementations must embed UnimplementedDBWorkServer
 // for forward compatibility.
@@ -91,6 +103,7 @@ type DBWorkServer interface {
 	DeleteTask(context.Context, *DeleteRequest) (*DeleteResponse, error)
 	DoneTask(context.Context, *DoneRequest) (*DoneResponse, error)
 	GetAllTask(context.Context, *GetAllRequest) (*GetAllResponse, error)
+	ChangeTask(context.Context, *ChangeRequest) (*ChangeResponse, error)
 	mustEmbedUnimplementedDBWorkServer()
 }
 
@@ -112,6 +125,9 @@ func (UnimplementedDBWorkServer) DoneTask(context.Context, *DoneRequest) (*DoneR
 }
 func (UnimplementedDBWorkServer) GetAllTask(context.Context, *GetAllRequest) (*GetAllResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllTask not implemented")
+}
+func (UnimplementedDBWorkServer) ChangeTask(context.Context, *ChangeRequest) (*ChangeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeTask not implemented")
 }
 func (UnimplementedDBWorkServer) mustEmbedUnimplementedDBWorkServer() {}
 func (UnimplementedDBWorkServer) testEmbeddedByValue()                {}
@@ -206,6 +222,24 @@ func _DBWork_GetAllTask_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DBWork_ChangeTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBWorkServer).ChangeTask(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBWork_ChangeTask_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBWorkServer).ChangeTask(ctx, req.(*ChangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DBWork_ServiceDesc is the grpc.ServiceDesc for DBWork service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -228,6 +262,150 @@ var DBWork_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllTask",
 			Handler:    _DBWork_GetAllTask_Handler,
+		},
+		{
+			MethodName: "ChangeTask",
+			Handler:    _DBWork_ChangeTask_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "myservice/service.proto",
+}
+
+const (
+	Auth_RegisterUser_FullMethodName = "/myservice.Auth/RegisterUser"
+	Auth_LoginUser_FullMethodName    = "/myservice.Auth/LoginUser"
+)
+
+// AuthClient is the client API for Auth service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type AuthClient interface {
+	RegisterUser(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
+	LoginUser(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+}
+
+type authClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewAuthClient(cc grpc.ClientConnInterface) AuthClient {
+	return &authClient{cc}
+}
+
+func (c *authClient) RegisterUser(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RegisterResponse)
+	err := c.cc.Invoke(ctx, Auth_RegisterUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) LoginUser(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, Auth_LoginUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AuthServer is the server API for Auth service.
+// All implementations must embed UnimplementedAuthServer
+// for forward compatibility.
+type AuthServer interface {
+	RegisterUser(context.Context, *RegisterRequest) (*RegisterResponse, error)
+	LoginUser(context.Context, *LoginRequest) (*LoginResponse, error)
+	mustEmbedUnimplementedAuthServer()
+}
+
+// UnimplementedAuthServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedAuthServer struct{}
+
+func (UnimplementedAuthServer) RegisterUser(context.Context, *RegisterRequest) (*RegisterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterUser not implemented")
+}
+func (UnimplementedAuthServer) LoginUser(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoginUser not implemented")
+}
+func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
+func (UnimplementedAuthServer) testEmbeddedByValue()              {}
+
+// UnsafeAuthServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to AuthServer will
+// result in compilation errors.
+type UnsafeAuthServer interface {
+	mustEmbedUnimplementedAuthServer()
+}
+
+func RegisterAuthServer(s grpc.ServiceRegistrar, srv AuthServer) {
+	// If the following call pancis, it indicates UnimplementedAuthServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&Auth_ServiceDesc, srv)
+}
+
+func _Auth_RegisterUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).RegisterUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_RegisterUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).RegisterUser(ctx, req.(*RegisterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_LoginUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).LoginUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_LoginUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).LoginUser(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Auth_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "myservice.Auth",
+	HandlerType: (*AuthServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "RegisterUser",
+			Handler:    _Auth_RegisterUser_Handler,
+		},
+		{
+			MethodName: "LoginUser",
+			Handler:    _Auth_LoginUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
