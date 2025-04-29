@@ -92,9 +92,8 @@ func (x *Task) GetDone() bool {
 type User struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Uid           int64                  `protobuf:"varint,1,opt,name=uid,proto3" json:"uid,omitempty"`
-	Username      string                 `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
 	Password      string                 `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Active        bool                   `protobuf:"varint,4,opt,name=active,proto3" json:"active,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -136,9 +135,9 @@ func (x *User) GetUid() int64 {
 	return 0
 }
 
-func (x *User) GetUsername() string {
+func (x *User) GetEmail() string {
 	if x != nil {
-		return x.Username
+		return x.Email
 	}
 	return ""
 }
@@ -148,13 +147,6 @@ func (x *User) GetPassword() string {
 		return x.Password
 	}
 	return ""
-}
-
-func (x *User) GetActive() bool {
-	if x != nil {
-		return x.Active
-	}
-	return false
 }
 
 type CreateRequest struct {
@@ -623,7 +615,7 @@ func (x *ChangeResponse) GetMessage() string {
 
 type RegisterRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -659,9 +651,9 @@ func (*RegisterRequest) Descriptor() ([]byte, []int) {
 	return file_myservice_service_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *RegisterRequest) GetUsername() string {
+func (x *RegisterRequest) GetEmail() string {
 	if x != nil {
-		return x.Username
+		return x.Email
 	}
 	return ""
 }
@@ -719,7 +711,7 @@ func (x *RegisterResponse) GetMessage() string {
 
 type LoginRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -755,9 +747,9 @@ func (*LoginRequest) Descriptor() ([]byte, []int) {
 	return file_myservice_service_proto_rawDescGZIP(), []int{14}
 }
 
-func (x *LoginRequest) GetUsername() string {
+func (x *LoginRequest) GetEmail() string {
 	if x != nil {
-		return x.Username
+		return x.Email
 	}
 	return ""
 }
@@ -830,12 +822,11 @@ const file_myservice_service_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x12\n" +
-	"\x04done\x18\x04 \x01(\bR\x04done\"h\n" +
+	"\x04done\x18\x04 \x01(\bR\x04done\"J\n" +
 	"\x04User\x12\x10\n" +
-	"\x03uid\x18\x01 \x01(\x03R\x03uid\x12\x1a\n" +
-	"\busername\x18\x02 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x03 \x01(\tR\bpassword\x12\x16\n" +
-	"\x06active\x18\x04 \x01(\bR\x06active\"G\n" +
+	"\x03uid\x18\x01 \x01(\x03R\x03uid\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\"G\n" +
 	"\rCreateRequest\x12\x14\n" +
 	"\x05title\x18\x01 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x02 \x01(\tR\vdescription\":\n" +
@@ -858,14 +849,14 @@ const file_myservice_service_proto_rawDesc = "" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x03 \x01(\tR\vdescription\"*\n" +
 	"\x0eChangeResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"I\n" +
-	"\x0fRegisterRequest\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"C\n" +
+	"\x0fRegisterRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\",\n" +
 	"\x10RegisterResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"F\n" +
-	"\fLoginRequest\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"@\n" +
+	"\fLoginRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"?\n" +
 	"\rLoginResponse\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\x12\x18\n" +
