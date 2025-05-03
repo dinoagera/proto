@@ -27,6 +27,7 @@ type Task struct {
 	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
 	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
 	Done          bool                   `protobuf:"varint,4,opt,name=done,proto3" json:"done,omitempty"`
+	Uid           int64                  `protobuf:"varint,5,opt,name=uid,proto3" json:"uid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -87,6 +88,13 @@ func (x *Task) GetDone() bool {
 		return x.Done
 	}
 	return false
+}
+
+func (x *Task) GetUid() int64 {
+	if x != nil {
+		return x.Uid
+	}
+	return 0
 }
 
 type User struct {
@@ -817,12 +825,13 @@ var File_myservice_service_proto protoreflect.FileDescriptor
 
 const file_myservice_service_proto_rawDesc = "" +
 	"\n" +
-	"\x17myservice/service.proto\x12\tmyservice\"b\n" +
+	"\x17myservice/service.proto\x12\tmyservice\"t\n" +
 	"\x04Task\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x12\n" +
-	"\x04done\x18\x04 \x01(\bR\x04done\"J\n" +
+	"\x04done\x18\x04 \x01(\bR\x04done\x12\x10\n" +
+	"\x03uid\x18\x05 \x01(\x03R\x03uid\"J\n" +
 	"\x04User\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\x03R\x03uid\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
