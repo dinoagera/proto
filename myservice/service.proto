@@ -19,6 +19,7 @@ message User {
 message CreateRequest {
     string title = 1;
     string description = 2;
+    int64 userid = 3;
 }
 message CreateResponse {
     int64 id = 1;
@@ -26,17 +27,21 @@ message CreateResponse {
 }
 message DeleteRequest {
     int64 id = 1;
+    int64 userid = 2;
 }
 message DeleteResponse {
     string message = 1;
 }
 message DoneRequest {
     int64 id = 1;
+    int64 userid = 3;
 }
 message DoneResponse {
     string message = 1;
 }
-message GetAllRequest {}
+message GetAllRequest {
+    int64 userid = 1;
+}
 message GetAllResponse {
     repeated Task tasks = 1;
 }
@@ -44,6 +49,7 @@ message ChangeRequest {
     int64 id = 1;
     string title = 2;
     string description = 3;
+    int64 userid = 4;
 }
 message ChangeResponse {
     string message = 1;

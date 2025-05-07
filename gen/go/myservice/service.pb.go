@@ -161,6 +161,7 @@ type CreateRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Title         string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
 	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	Userid        int64                  `protobuf:"varint,3,opt,name=userid,proto3" json:"userid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -207,6 +208,13 @@ func (x *CreateRequest) GetDescription() string {
 		return x.Description
 	}
 	return ""
+}
+
+func (x *CreateRequest) GetUserid() int64 {
+	if x != nil {
+		return x.Userid
+	}
+	return 0
 }
 
 type CreateResponse struct {
@@ -264,6 +272,7 @@ func (x *CreateResponse) GetMessage() string {
 type DeleteRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Userid        int64                  `protobuf:"varint,2,opt,name=userid,proto3" json:"userid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -301,6 +310,13 @@ func (*DeleteRequest) Descriptor() ([]byte, []int) {
 func (x *DeleteRequest) GetId() int64 {
 	if x != nil {
 		return x.Id
+	}
+	return 0
+}
+
+func (x *DeleteRequest) GetUserid() int64 {
+	if x != nil {
+		return x.Userid
 	}
 	return 0
 }
@@ -352,6 +368,7 @@ func (x *DeleteResponse) GetMessage() string {
 type DoneRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Userid        int64                  `protobuf:"varint,3,opt,name=userid,proto3" json:"userid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -389,6 +406,13 @@ func (*DoneRequest) Descriptor() ([]byte, []int) {
 func (x *DoneRequest) GetId() int64 {
 	if x != nil {
 		return x.Id
+	}
+	return 0
+}
+
+func (x *DoneRequest) GetUserid() int64 {
+	if x != nil {
+		return x.Userid
 	}
 	return 0
 }
@@ -439,6 +463,7 @@ func (x *DoneResponse) GetMessage() string {
 
 type GetAllRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Userid        int64                  `protobuf:"varint,1,opt,name=userid,proto3" json:"userid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -471,6 +496,13 @@ func (x *GetAllRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use GetAllRequest.ProtoReflect.Descriptor instead.
 func (*GetAllRequest) Descriptor() ([]byte, []int) {
 	return file_myservice_service_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *GetAllRequest) GetUserid() int64 {
+	if x != nil {
+		return x.Userid
+	}
+	return 0
 }
 
 type GetAllResponse struct {
@@ -522,6 +554,7 @@ type ChangeRequest struct {
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
 	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Userid        int64                  `protobuf:"varint,4,opt,name=userid,proto3" json:"userid,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -575,6 +608,13 @@ func (x *ChangeRequest) GetDescription() string {
 		return x.Description
 	}
 	return ""
+}
+
+func (x *ChangeRequest) GetUserid() int64 {
+	if x != nil {
+		return x.Userid
+	}
+	return 0
 }
 
 type ChangeResponse struct {
@@ -835,28 +875,33 @@ const file_myservice_service_proto_rawDesc = "" +
 	"\x04User\x12\x10\n" +
 	"\x03uid\x18\x01 \x01(\x03R\x03uid\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x03 \x01(\tR\bpassword\"G\n" +
+	"\bpassword\x18\x03 \x01(\tR\bpassword\"_\n" +
 	"\rCreateRequest\x12\x14\n" +
 	"\x05title\x18\x01 \x01(\tR\x05title\x12 \n" +
-	"\vdescription\x18\x02 \x01(\tR\vdescription\":\n" +
+	"\vdescription\x18\x02 \x01(\tR\vdescription\x12\x16\n" +
+	"\x06userid\x18\x03 \x01(\x03R\x06userid\":\n" +
 	"\x0eCreateResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage\"\x1f\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"7\n" +
 	"\rDeleteRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\"*\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x16\n" +
+	"\x06userid\x18\x02 \x01(\x03R\x06userid\"*\n" +
 	"\x0eDeleteResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"\x1d\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"5\n" +
 	"\vDoneRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\"(\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x16\n" +
+	"\x06userid\x18\x03 \x01(\x03R\x06userid\"(\n" +
 	"\fDoneResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"\x0f\n" +
-	"\rGetAllRequest\"7\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"'\n" +
+	"\rGetAllRequest\x12\x16\n" +
+	"\x06userid\x18\x01 \x01(\x03R\x06userid\"7\n" +
 	"\x0eGetAllResponse\x12%\n" +
-	"\x05tasks\x18\x01 \x03(\v2\x0f.myservice.TaskR\x05tasks\"W\n" +
+	"\x05tasks\x18\x01 \x03(\v2\x0f.myservice.TaskR\x05tasks\"o\n" +
 	"\rChangeRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12 \n" +
-	"\vdescription\x18\x03 \x01(\tR\vdescription\"*\n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x16\n" +
+	"\x06userid\x18\x04 \x01(\x03R\x06userid\"*\n" +
 	"\x0eChangeResponse\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\"C\n" +
 	"\x0fRegisterRequest\x12\x14\n" +
