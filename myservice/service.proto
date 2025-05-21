@@ -65,10 +65,17 @@ message LoginRequest {
     string email = 1;
     string password = 2;
 }
-
 message LoginResponse {
-    string token = 1;
-    string message = 2;
+    string access_token = 1;
+    string refresh_token = 2;
+    string message = 3;
+}
+message RefreshRequest {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+message RefreshResponse {
+    string access_token = 1;
 }
 service DBWork {
     rpc CreateTask (CreateRequest) returns (CreateResponse);
@@ -80,4 +87,5 @@ service DBWork {
 service Auth {
     rpc RegisterUser (RegisterRequest) returns (RegisterResponse);
     rpc LoginUser (LoginRequest) returns (LoginResponse);
+    rpc RefreshToken (RefreshRequest) returns (RefreshResponse);
 }

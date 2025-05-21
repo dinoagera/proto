@@ -811,8 +811,9 @@ func (x *LoginRequest) GetPassword() string {
 
 type LoginResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
-	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	Message       string                 `protobuf:"bytes,3,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -847,9 +848,16 @@ func (*LoginResponse) Descriptor() ([]byte, []int) {
 	return file_myservice_service_proto_rawDescGZIP(), []int{15}
 }
 
-func (x *LoginResponse) GetToken() string {
+func (x *LoginResponse) GetAccessToken() string {
 	if x != nil {
-		return x.Token
+		return x.AccessToken
+	}
+	return ""
+}
+
+func (x *LoginResponse) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
 	}
 	return ""
 }
@@ -857,6 +865,102 @@ func (x *LoginResponse) GetToken() string {
 func (x *LoginResponse) GetMessage() string {
 	if x != nil {
 		return x.Message
+	}
+	return ""
+}
+
+type RefreshRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RefreshRequest) Reset() {
+	*x = RefreshRequest{}
+	mi := &file_myservice_service_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RefreshRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RefreshRequest) ProtoMessage() {}
+
+func (x *RefreshRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_myservice_service_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RefreshRequest.ProtoReflect.Descriptor instead.
+func (*RefreshRequest) Descriptor() ([]byte, []int) {
+	return file_myservice_service_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *RefreshRequest) GetAccessToken() string {
+	if x != nil {
+		return x.AccessToken
+	}
+	return ""
+}
+
+func (x *RefreshRequest) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
+	}
+	return ""
+}
+
+type RefreshResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RefreshResponse) Reset() {
+	*x = RefreshResponse{}
+	mi := &file_myservice_service_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RefreshResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RefreshResponse) ProtoMessage() {}
+
+func (x *RefreshResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_myservice_service_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RefreshResponse.ProtoReflect.Descriptor instead.
+func (*RefreshResponse) Descriptor() ([]byte, []int) {
+	return file_myservice_service_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *RefreshResponse) GetAccessToken() string {
+	if x != nil {
+		return x.AccessToken
 	}
 	return ""
 }
@@ -911,10 +1015,16 @@ const file_myservice_service_proto_rawDesc = "" +
 	"\amessage\x18\x01 \x01(\tR\amessage\"@\n" +
 	"\fLoginRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\"?\n" +
-	"\rLoginResponse\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage2\xd1\x02\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\"q\n" +
+	"\rLoginResponse\x12!\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x18\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage\"X\n" +
+	"\x0eRefreshRequest\x12!\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"4\n" +
+	"\x0fRefreshResponse\x12!\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken2\xd1\x02\n" +
 	"\x06DBWork\x12A\n" +
 	"\n" +
 	"CreateTask\x12\x18.myservice.CreateRequest\x1a\x19.myservice.CreateResponse\x12A\n" +
@@ -924,10 +1034,11 @@ const file_myservice_service_proto_rawDesc = "" +
 	"\n" +
 	"GetAllTask\x12\x18.myservice.GetAllRequest\x1a\x19.myservice.GetAllResponse\x12A\n" +
 	"\n" +
-	"ChangeTask\x12\x18.myservice.ChangeRequest\x1a\x19.myservice.ChangeResponse2\x8f\x01\n" +
+	"ChangeTask\x12\x18.myservice.ChangeRequest\x1a\x19.myservice.ChangeResponse2\xd6\x01\n" +
 	"\x04Auth\x12G\n" +
 	"\fRegisterUser\x12\x1a.myservice.RegisterRequest\x1a\x1b.myservice.RegisterResponse\x12>\n" +
-	"\tLoginUser\x12\x17.myservice.LoginRequest\x1a\x18.myservice.LoginResponseB8Z6github.com/dinoagera/protos/gen/go/myservice;myserviceb\x06proto3"
+	"\tLoginUser\x12\x17.myservice.LoginRequest\x1a\x18.myservice.LoginResponse\x12E\n" +
+	"\fRefreshToken\x12\x19.myservice.RefreshRequest\x1a\x1a.myservice.RefreshResponseB8Z6github.com/dinoagera/protos/gen/go/myservice;myserviceb\x06proto3"
 
 var (
 	file_myservice_service_proto_rawDescOnce sync.Once
@@ -941,7 +1052,7 @@ func file_myservice_service_proto_rawDescGZIP() []byte {
 	return file_myservice_service_proto_rawDescData
 }
 
-var file_myservice_service_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_myservice_service_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_myservice_service_proto_goTypes = []any{
 	(*Task)(nil),             // 0: myservice.Task
 	(*User)(nil),             // 1: myservice.User
@@ -959,6 +1070,8 @@ var file_myservice_service_proto_goTypes = []any{
 	(*RegisterResponse)(nil), // 13: myservice.RegisterResponse
 	(*LoginRequest)(nil),     // 14: myservice.LoginRequest
 	(*LoginResponse)(nil),    // 15: myservice.LoginResponse
+	(*RefreshRequest)(nil),   // 16: myservice.RefreshRequest
+	(*RefreshResponse)(nil),  // 17: myservice.RefreshResponse
 }
 var file_myservice_service_proto_depIdxs = []int32{
 	0,  // 0: myservice.GetAllResponse.tasks:type_name -> myservice.Task
@@ -969,15 +1082,17 @@ var file_myservice_service_proto_depIdxs = []int32{
 	10, // 5: myservice.DBWork.ChangeTask:input_type -> myservice.ChangeRequest
 	12, // 6: myservice.Auth.RegisterUser:input_type -> myservice.RegisterRequest
 	14, // 7: myservice.Auth.LoginUser:input_type -> myservice.LoginRequest
-	3,  // 8: myservice.DBWork.CreateTask:output_type -> myservice.CreateResponse
-	5,  // 9: myservice.DBWork.DeleteTask:output_type -> myservice.DeleteResponse
-	7,  // 10: myservice.DBWork.DoneTask:output_type -> myservice.DoneResponse
-	9,  // 11: myservice.DBWork.GetAllTask:output_type -> myservice.GetAllResponse
-	11, // 12: myservice.DBWork.ChangeTask:output_type -> myservice.ChangeResponse
-	13, // 13: myservice.Auth.RegisterUser:output_type -> myservice.RegisterResponse
-	15, // 14: myservice.Auth.LoginUser:output_type -> myservice.LoginResponse
-	8,  // [8:15] is the sub-list for method output_type
-	1,  // [1:8] is the sub-list for method input_type
+	16, // 8: myservice.Auth.RefreshToken:input_type -> myservice.RefreshRequest
+	3,  // 9: myservice.DBWork.CreateTask:output_type -> myservice.CreateResponse
+	5,  // 10: myservice.DBWork.DeleteTask:output_type -> myservice.DeleteResponse
+	7,  // 11: myservice.DBWork.DoneTask:output_type -> myservice.DoneResponse
+	9,  // 12: myservice.DBWork.GetAllTask:output_type -> myservice.GetAllResponse
+	11, // 13: myservice.DBWork.ChangeTask:output_type -> myservice.ChangeResponse
+	13, // 14: myservice.Auth.RegisterUser:output_type -> myservice.RegisterResponse
+	15, // 15: myservice.Auth.LoginUser:output_type -> myservice.LoginResponse
+	17, // 16: myservice.Auth.RefreshToken:output_type -> myservice.RefreshResponse
+	9,  // [9:17] is the sub-list for method output_type
+	1,  // [1:9] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name
 	1,  // [1:1] is the sub-list for extension extendee
 	0,  // [0:1] is the sub-list for field type_name
@@ -994,7 +1109,7 @@ func file_myservice_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_myservice_service_proto_rawDesc), len(file_myservice_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   16,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   2,
 		},
